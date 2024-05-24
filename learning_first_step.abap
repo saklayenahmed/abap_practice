@@ -101,12 +101,28 @@ ENDWHILE.
 
 WRITE /.
 
+*--------------
 *Check System variables
 WRITE : / 'The name of the user:' , sy-uname.
 WRITE : / 'Current date:' , sy-datum.
+WRITE : / 'The Current time is:' , sy-uzeit.
+
+*WRITE : / 'The user command:' , sy-ucomm.
 
 WRITE /.
 
 DO 10 TIMES.
   WRITE: / sy-index, sy-tabix.
 ENDDO.
+
+
+*---------------
+*String Operation
+DATA : lv_input_string_1(10) TYPE c VALUE 'Welcome',
+       lv_input_string_2(10) TYPE c VALUE 'To',
+       lv_input_string_3(10) TYPE c VALUE 'SAP',
+       lv_output_string      TYPE string.
+
+CONCATENATE lv_input_string_1 lv_input_string_2 lv_input_string_3 INTO lv_output_string SEPARATED BY ' '.
+WRITE: / 'The result is:', lv_output_string.
+
