@@ -123,6 +123,25 @@ DATA : lv_input_string_1(10) TYPE c VALUE 'Welcome',
        lv_input_string_3(10) TYPE c VALUE 'SAP',
        lv_output_string      TYPE string.
 
+DATA : lv_result_1_split(10) TYPE  c,
+       lv_result_2_split(10) TYPE c,
+       lv_result_3_split(10) TYPE c.
+
+DATA lv_input_condense TYPE string VALUE '   Welcome    to    SAP    '.
+
+
 CONCATENATE lv_input_string_1 lv_input_string_2 lv_input_string_3 INTO lv_output_string SEPARATED BY ' '.
 WRITE: / 'The result is:', lv_output_string.
 
+SPLIT lv_output_string AT ' ' INTO lv_result_1_split lv_result_2_split lv_result_3_split.
+WRITE : / 'The Split result', / lv_result_1_split, / lv_result_2_split, / lv_result_3_split.
+WRITE: / 'Before condense:', lv_input_condense.
+WRITE: / 'Length of the text', STRLEN( lv_input_condense ).
+
+CONDENSE lv_input_condense.
+WRITE : / 'After condense:', lv_input_condense.
+WRITE: / 'Length of the text', STRLEN( lv_input_condense ).
+
+CONDENSE lv_input_condense NO-GAPS.
+WRITE : / 'After condense (No-Gaps):', lv_input_condense.
+WRITE: / 'Length of the text', STRLEN( lv_input_condense ).
