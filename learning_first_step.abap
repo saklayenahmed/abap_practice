@@ -54,22 +54,41 @@ WRITE /.
 
 *---------------------
 *Do Loop 1st syntax
-DATA lv_input_do(2) TYPE n VALUE 10.
+*CHECK loop statement
+DATA lv_input_do_check(2) TYPE n VALUE 10.
 
 DO 10 TIMES.
-  WRITE: / 'The do loop 1st syntax' , lv_input_do.
-  lv_input_do = lv_input_do + 1.
+  lv_input_do_check = lv_input_do_check + 1.
+  CHECK lv_input_do_check = 15.
+  WRITE : / 'The Check output is' , lv_input_do_check.
 ENDDO.
 
-*Do Loop 2nd Systax if not exit - Endless
+WRITE /.
+
+*CONTINUE Loop statement
+DATA lv_input_do_continue(2) TYPE n VALUE 10.
+
+DO 10 TIMES.
+  IF lv_input_do_continue = 14.
+    CONTINUE.
+  ENDIF.
+  WRITE: / 'The do loop 1st syntax' , lv_input_do_continue.
+  lv_input_do_continue = lv_input_do_continue + 1.
+ENDDO.
+
+WRITE /.
+
+*Do Loop 2nd Syntax if not exit - Endless
+DATA lv_input_do_exit(2) TYPE n VALUE 10.
 DO.
-  IF lv_input_do = 15.
+  IF lv_input_do_exit = 15.
     EXIT. "Exit statement helps us to exit from the current loop.
   ENDIF.
-  WRITE: / 'The do loop 2nd syntax' , lv_input_do.
-  lv_input_do = lv_input_do + 1.
+  WRITE: / 'The do loop 2nd syntax' , lv_input_do_exit.
+  lv_input_do_exit = lv_input_do_exit + 1.
 ENDDO.
 
+WRITE /.
 
 *---------------
 *Whie Loop
@@ -79,3 +98,15 @@ WHILE lv_input_while LT 15.
   WRITE: / 'The while loop outout is' , lv_input_while.
   lv_input_while = lv_input_while + 1.
 ENDWHILE.
+
+WRITE /.
+
+*Check System variables
+WRITE : / 'The name of the user:' , sy-uname.
+WRITE : / 'Current date:' , sy-datum.
+
+WRITE /.
+
+DO 10 TIMES.
+  WRITE: / sy-index, sy-tabix.
+ENDDO.
