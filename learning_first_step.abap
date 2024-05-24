@@ -136,12 +136,66 @@ WRITE: / 'The result is:', lv_output_string.
 SPLIT lv_output_string AT ' ' INTO lv_result_1_split lv_result_2_split lv_result_3_split.
 WRITE : / 'The Split result', / lv_result_1_split, / lv_result_2_split, / lv_result_3_split.
 WRITE: / 'Before condense:', lv_input_condense.
-WRITE: / 'Length of the text', STRLEN( lv_input_condense ).
+WRITE: / 'Length of the text', strlen( lv_input_condense ).
 
 CONDENSE lv_input_condense.
 WRITE : / 'After condense:', lv_input_condense.
-WRITE: / 'Length of the text', STRLEN( lv_input_condense ).
+WRITE: / 'Length of the text', strlen( lv_input_condense ).
 
 CONDENSE lv_input_condense NO-GAPS.
 WRITE : / 'After condense (No-Gaps):', lv_input_condense.
-WRITE: / 'Length of the text', STRLEN( lv_input_condense ).
+WRITE: / 'Length of the text', strlen( lv_input_condense ).
+
+WRITE /.
+
+*-------------------
+*Find String
+DATA lv_in_find(50) TYPE c VALUE 'System Application Product'.
+
+FIND 'System' IN lv_in_find IGNORING CASE.
+IF sy-subrc = 0.
+  WRITE : 'Successful', sy-subrc.
+ELSE.
+  WRITE: 'Unsuccessful', sy-subrc.
+ENDIF.
+
+
+*-------------------------------
+*Translate string
+
+DATA : lv_translate(50)   TYPE c VALUE 'Welcome to SAP',
+       lv_translate_2(50) TYPE c VALUE 'welcome to sap',
+lv_rule(10) TYPE c VALUE 'wWtTpP'.
+
+TRANSLATE lv_translate_2 USING lv_rule.
+*TRANSLATE lv_translate TO LOWER CASE.
+*WRITE: / lv_translate.
+
+*TRANSLATE lv_translate_2 TO UPPER CASE.
+WRITE:/ lv_translate_2.
+
+
+*----------------------------
+*SHIFT string
+DATA: shift_string1(10) TYPE c VALUE '0123456789',
+      shift_string2(10) TYPE c VALUE '0123456789',
+      shift_string3(10) TYPE c VALUE '0123456789',
+      shift_string4(10) TYPE c VALUE '0000000007',
+      shift_string5(10) TYPE c VALUE '7000000000'.
+
+SHIFT shift_string1 by 5 PLACES LEFT.
+WRITE:/ 'Left:', shift_string1.
+
+SHIFT shift_string2 by 5 PLACES RIGHT.
+WRITE:/ 'Right:', shift_string2.
+
+SHIFT shift_string3 by 5 PLACES CIRCULAR.
+WRITE:/ 'Circular:', shift_string3.
+
+SHIFT shift_string4 LEFT DELETING LEADING  '0'.
+CONDENSE shift_string4.
+WRITE: / 'Result after deletion:', shift_string4.
+
+SHIFT shift_string5 RIGHT DELETING TRAILING  '0'.
+CONDENSE shift_string5.
+WRITE: / 'Result after deletion:', shift_string5.
